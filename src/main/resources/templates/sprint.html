@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Project Creation</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/registration.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body style="background-color: #cacaca;">
+<div th:replace="fragments/header :: header">&nbsp;</div>
+
+<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+			
+				<form autocomplete="off" action="#" th:action="@{/sprint/create}"
+					th:object="${sprint}" method="post" class="form-horizontal"
+					role="form">
+
+
+<br />
+					<br />
+					<br />
+					<br />
+					<h2>ADD NEW-SPRINT</h2>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							PROJECT ID &nbsp; : &nbsp; <label th:text="*{project.id}"
+								class="validation-message"></label> <input type="hidden"
+								th:field="*{project.id}" placeholder="NAME" class="form-control" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							PROJECT NAME &nbsp; : &nbsp; <label th:text="*{project.title}"
+								class="validation-message"></label>
+							<!-- <input type="text" th:field="*{project.title}" 
+								placeholder="NAME" class="form-control" /> -->
+						</div>
+					</div>
+
+				<!-- 	
+					<div class="form-group">
+						<div class="col-sm-9">
+							SCRUM MASTER<select class="form-control"
+								aria-describedby="status-addon" id="master" name="master"
+								th:field="*{master}">
+								<option th:each="user : *{project.users}" th:value="${user.id}"
+									th:text="${user.id}+' : '+${user.email}"></option>
+							</select>
+
+						</div>
+					</div> -->
+					
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							<label th:if="${#fields.hasErrors('noOfDays')}"
+								th:errors="*{noOfDays}" class="validation-message"></label>
+							SPRINT DURATION(in no:of Days) <input type="text" th:field="*{noOfDays}"
+								placeholder="" class="form-control" />
+
+						</div>
+
+					</div>
+
+	<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('name')}"
+								th:errors="*{name}" class="validation-message"></label>
+							NAME<input type="text" th:field="*{name}"
+								placeholder="" class="form-control" />
+
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('sprintDesc')}"
+								th:errors="*{sprintDesc}" class="validation-message"></label>
+							DESCRIPTION <input type="text" th:field="*{sprintDesc}"
+								placeholder="" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('startDate')}"
+								th:errors="*{startDate}" class="validation-message"></label>
+							SPRINT START DATE <input type="text" th:field="*{startDate}"
+								placeholder="" class="form-control"  />
+
+						</div>
+
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							<label th:if="${#fields.hasErrors('endDate')}"
+								th:errors="*{endDate}" class="validation-message"></label>
+							SPRINT END DATE<input type="text" th:field="*{endDate}"
+								placeholder="" class="form-control"  />
+
+						</div>
+
+					</div>
+					
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							<label th:if="${#fields.hasErrors('burnperDay')}"
+								th:errors="*{burnperDay}" class="validation-message"></label>
+							DAILY BURN(per day)<input type="text" th:field="*{burnperDay}"
+								placeholder="" class="form-control" />
+
+						</div>
+
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">CREATE
+								SPRINT</button>
+					</div>
+				</div>
+				
+					<span th:utext="${successMessage}"></span>
+				</form>
+			</div>
+		</div>
+		
+		<div class="panel-body">
+
+
+			<div class="panel-group" style="margin-top: 40px">
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span>Project Sprints</span>
+					</div>
+					<div class="panel-body">
+
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Sprint id</th>
+								
+									<th>Number Of Days</th>
+									<th>Sprint Description</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+
+
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="sprint : ${sprints}">
+									<td th:text="${sprint.id}"></td>
+									<!-- <td th:text="${sprint.sprintNo}"></td> -->
+									<td th:text="${sprint.noOfDays}"></td>
+									<td th:text="${sprint.sprintDesc}"></td>
+									<td th:text="${sprint.startDate}"></td>
+									<td th:text="${sprint.endDate}"></td>
+									<td><a th:href="${'/sprint/edit/' + {sprint.id}}">edit</a></td>
+									<td><a th:href="${'/sprint/delete/' + {sprint.id}}">delete</a></td>
+
+
+									
+								</tr>
+							</tbody>
+				</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr />
+	
+
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</body>
+
+
+</html>

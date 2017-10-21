@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>project edit</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/registration.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: #cacaca;">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" action="#" th:action="@{/project/update}"
+					th:object="${project}" method="post" class="form-horizontal"
+					role="form">
+					<h2>Project Form</h2>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('id')}" th:errors="*{id}"
+								class="validation-message"></label> <input type="text"
+								th:field="*{id}" placeholder="ID" class="form-control" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('title')}" th:errors="*{title}"
+								class="validation-message"></label> <input type="text"
+								th:field="*{title}" placeholder="Title" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('description')}"
+								th:errors="*{description}" class="validation-message"></label> <input
+								type="text" th:field="*{description}" placeholder="Description"
+								class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('duration')}"
+								th:errors="*{duration}" class="validation-message"></label> <input
+								type="text" th:field="*{duration}" placeholder="Duration"
+								class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">Update
+								Project</button>
+						</div>
+					</div>
+					<span th:utext="${successMessage}"></span>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="panel-heading"></div>
+			<div class="panel-body">
+
+				<table class="table table-hover">
+					<thead>
+						<tr>
+							<th>Project Id</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th>Duration</th>
+							<th></th>
+							<th></th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="project : ${projects}">
+							<td th:text="${project.id}"></td>
+							<td th:text="${project.title}"></td>
+							<td th:text="${project.description}"></td>
+							<td th:text="${project.duration}"></td>
+							<td><a th:href="${'/project/edit/' + {project.id}}">edit
+							</a></td>
+							<td><a th:href="${'/project/delete/' + {project.id}}">delete
+							</a></td>
+							<td><a th:href="${'/project/assign/' + {project.id}}">assign
+							</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

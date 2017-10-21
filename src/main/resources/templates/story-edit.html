@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+
+<link rel="stylesheet" type="text/css" th:href="@{/css/story.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+
+<meta charset="UTF-8">
+
+
+<body style="background-color: #cacaca;">
+<div th:replace="fragments/header :: header">&nbsp;</div>
+
+
+<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+		<br />
+					<br />
+					<br />
+					<br />	
+	<h2>
+		UPDATE THE EXISTING-STORIES
+	</h2>
+
+
+	
+				<form autocomplete="off" action="#" th:action="@{/story/update}"
+					th:object="${story}" method="post" class="form-horizontal"
+					role="form">
+				 
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							PROJECT ID &nbsp; : &nbsp; <label th:text="*{project.id}"
+								class="validation-message"></label>
+								<input type="hidden" th:field="*{project.id}"
+								placeholder="NAME" class="form-control" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							PROJECT NAME &nbsp; : &nbsp; <label th:text="*{project.title}"
+								class="validation-message"></label>
+							<input type="hidden" th:field="*{project.title}"
+								placeholder="TITLE" class="form-control" />
+						</div>
+					</div>
+
+
+
+
+
+
+					
+						<div class="form-group">
+						<div class="col-sm-9">
+
+							STORY ID &nbsp; : &nbsp; <label th:text="*{id}"
+								class="validation-message"></label>
+							<input type="hidden" th:field="*{id}"
+								placeholder="ID" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							STORY TYPE <select class="form-control"
+								aria-describedby="status-addon" id="type" name="type"
+								th:field="*{type}">
+								<option th:value="defect" th:text="defect "></option>
+								<option th:value="tech" th:text="technical"></option>
+								<option th:value="user" th:text="User"></option>
+							</select>
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('name')}"
+								th:errors="*{name}" class="validation-message"></label>
+							TITLE <input type="text" th:field="*{name}"
+								placeholder="Description" class="form-control" />
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('description')}"
+								th:errors="*{description}" class="validation-message"></label>
+							DESCRIPTION<input type="text" th:field="*{description}"
+								placeholder="Description" class="form-control" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							STORY PRIORITY <select class="form-control"
+								aria-describedby="status-addon" id="priority" name="priority"
+								th:field="*{priority}">
+								<option th:value="low " th:text="low"></option>
+								<option th:value="mediumm" th:text="medium"></option>
+								<option th:value="high" th:text="high"></option>
+							</select>
+
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							ASSIGNED TO <select class="form-control"
+								aria-describedby="status-addon" id="assigned" name="assigned"
+								th:field="*{assigned}">
+								<option th:each="user : *{project.users}" th:value="${user.id}"
+									th:text="${user.id}+' : '+${user.email}"></option>
+							</select>
+
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							ASSIGNED TO SPRINT <select class="form-control"
+								aria-describedby="status-addon" id="sprint" name="sprint"
+								th:field="*{sprint}">
+								<option th:each="sprint : *{project.sprints}"
+									th:value="${sprint.id}"
+									th:text="${sprint.id}+' : '+${sprint.sprintNo}"></option>
+							</select>
+
+						</div>
+					</div>
+
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							STATUS <select class="form-control"
+								aria-describedby="status-addon" id="status" name="status"
+								th:field="*{status}">
+								<option th:value="open" th:text="open"></option>
+								<option th:value="in-progress" th:text="in-progress"></option>
+								<option th:value="closed" th:text="closed"></option>
+							</select>
+
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('duration')}"
+								th:errors="*{duration}" class="validation-message"></label>
+							ESTIMATED DURATION<input type="text" th:field="*{duration}"
+								placeholder="Duration" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('remaining')}"
+								th:errors="*{remaining}" class="validation-message"></label>
+							REMAINING TIME<input type="text" th:field="*{remaining}"
+								placeholder="Remaining" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('actual')}"
+								th:errors="*{actual}" class="validation-message"></label>
+							ACTUAL HOURS<input type="text" th:field="*{actual}"
+								placeholder="Remaining" class="form-control" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">UPDATE
+								STORY</button>
+						</div>
+					</div>
+			
+
+			<span th:utext="${successMessage}"></span>
+	
+		</form>
+
+</div>
+</div>
+
+	<div class="panel-body">
+
+
+			<div class="panel-group" style="margin-top: 40px">
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span>Project Stories</span>
+					</div>
+					<div class="panel-body">
+
+						<table class="table table-hover">
+									<thead>
+										<tr>
+											<th>Story Id</th>
+											<th>Title</th>
+											<th>Description</th>
+											<th>Type</th>
+											<th>Priority</th>
+											<th>Assigned to</th>
+											<th>Estimated Duration</th>
+											<th>Remaining Hours</th>
+											<th>Actual Hours</th>
+											<th>Status</th>
+
+											<th></th>
+											<th></th>
+											<th></th>
+											<th></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="story : ${storys}">
+											<td th:text="${story.id}"></td>
+											<td th:text="${story.name}"></td>
+											<td th:text="${story.description}"></td>
+											<td th:text="${story.type}"></td>
+											<td th:text="${story.priority}"></td>
+											<td th:text="${story.user.name}"></td>
+											<td th:text="${story.status}"></td>
+											<td th:text="${story.duration}"></td>
+											<td th:text="${story.remaining}"></td>
+											<td th:text="${story.actual}"></td>
+											<td><a th:href="${'/story/edit/' + {story.id}}">edit
+											</a></td>
+											<td><a th:href="${'/story/delete/' + {story.id}}">delete
+											</a></td>
+											
+										</tr>
+									</tbody>
+								</table>
+
+							
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+</body>
+</html>

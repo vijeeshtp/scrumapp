@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Project Creation</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/registration.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: #cacaca;">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<div class="container">
+		<div>
+			<div>
+
+				<div class="form-group">
+					<div class="col-sm-9">
+						<br/>	<br/>
+							<label th:text="PROJECT-ID" ></label>&nbsp;:&nbsp;
+						
+						<label th:text="${project.id}" ></label>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+		<div>
+			<table class="table table-hover">
+
+				<tr>
+					<td><a th:href="${'/project/createstory/' + {project.id}}">Create
+							Story </a></td>
+
+
+					<td><a th:href="${'/project/createsprint/' + {project.id}}">Create
+							sprint </a></td>
+							
+							<td><a th:href="${'/project/productbacklog/' + {project.id}}">status of the project
+							</a></td>
+
+					<td><a th:href="${'/project/productbacklog/' + {project.id}}">Product
+							Backlog</a></td>
+
+					<td><a th:href="${'/project/productbacklog/' + {project.id}}">sprint
+							Backlog</a></td>
+
+<!-- 
+					<td><a th:href="${'/project/createstory/' + {project.id}}">burn
+							down chart</a></td> -->
+							
+							
+					<td><a th:href="${'/myprojects/burndown'}">burn
+							down chart</a></td>					
+				</tr>
+			</table>
+	
+		</div>
+
+			<div class="panel-body">
+
+
+			<div class="panel-group" style="margin-top: 40px">
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span>My Stories</span>
+					</div>
+					<div class="panel-body">
+
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>story Id</th>
+									<th>name</th>
+									<th>Description</th>
+									<th>Duration</th>
+									<th>Status</th>
+									<!--  <th>Assigned To</th> -->
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="story : ${project.stories}">
+									<td th:text="${story.id}"></td>
+									<td th:text="${story.name}"></td>
+									<td th:text="${story.description}"></td>
+									<td th:text="${story.duration}"></td>
+									<td th:text="${story.status}"></td>
+									<td><a th:href="${'/story/edit/' + {story.id}}">open
+											story</a></td>
+
+								</tr>
+							</tbody>
+						</table>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			<div class="panel-body">
+
+
+			<div class="panel-group" style="margin-top: 40px">
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span>Project Sprints</span>
+					</div>
+					<div class="panel-body">
+
+
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Sprint id</th>
+									
+									<th>Number Of Days</th>
+									<th>Sprint Description</th>
+									<th>Start Date</th>
+									<th>End Date</th>
+
+
+									<th></th>
+									<th></th>
+									<th></th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:each="sprint : ${sprints}">
+									<td th:text="${sprint.id}"></td>
+								
+									<td th:text="${sprint.noOfDays}"></td>
+									<td th:text="${sprint.sprintDesc}"></td>
+									<td th:text="${sprint.startDate}"></td>
+									<td th:text="${sprint.endDate}"></td>
+
+<td><a th:href="${'/sprint/backlog/' + {sprint.id}}">Sprint Backlog</a></td>
+<td><a th:href="${'/sprint/burndown/' + {sprint.id}}">Sprint Burn-down Chart</a></td>
+<td><a th:href="${'/sprint/edit/' + {sprint.id}}">Open Sprint</a></td>
+
+								
+								</tr>
+							</tbody>
+				</table>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+	</div>
+
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+</body>
+</html>

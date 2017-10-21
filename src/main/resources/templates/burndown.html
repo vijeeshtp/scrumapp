@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+
+
+</head>
+
+<meta charset="UTF-8">
+
+
+<body style="background-color: #cacaca;">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+Burn down chart
+  <div id="bdcgraph">
+  </div>
+
+</body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.10/d3.min.js"></script>
+<script src="https://cdn.rawgit.com/theodo/d3-burn-down-chart/master/dist/d3-bdc.js"></script>
+<script th:inline="javascript">
+
+/*<![CDATA[*/
+config = {
+  containerId: '#bdcgraph',
+  width: 1200,
+  height: 500,
+  margins: {
+    top: 20,
+    right: 70,
+    bottom: 30,
+    left: 50
+  },
+  colors: {
+    standard: '#D93F8E',
+    done: '#5AA6CB',
+    good: '#97D17A',
+    bad: '#FA6E69'
+  },
+  startLabel: 'Start',
+  //dateFormat: '%A',
+  xTitle: 'Daily meetings',
+  dotRadius: 4,
+  standardStrokeWidth: 2,
+  doneStrokeWidth: 2,
+  //goodSuffix: ' :)',
+ // badSuffix: ' :('
+};
+
+var xx = [[${message}]];
+//console.log(xxx);
+
+
+
+//mystring = xxx.replace(/['"]+/g, '');
+//console.log(mystring);
+
+//var myObj = JSON.parse(xxx);
+//console.log(myObj);
+//data= JSON.parse(mystring);
+//data=eval('(' + xxx + ')');
+//console.log(data);
+
+
+var data = new Array();
+//var data[];
+
+var str='';
+
+arr=xx.split(',#');
+console.log (arr);
+
+var objArray = []; 
+
+for (var i = 0, len = arr.length; i < len; i++) {
+	x= arr[i];
+
+	arr2= x.split (',')
+	
+		console.log (arr2[0]);
+		console.log (arr2[1]);
+		console.log (arr2[2]);
+		console.log (arr2[3]);
+		console.log (arr2[4]);
+		
+		var obj = {};
+	
+		obj.date = new Date (arr2[0], arr2[1], arr2[2]);
+		obj.standard=arr2[3];
+		if (	arr2[4]==="null") {
+			obj.done=null;
+		}
+		else {
+			obj.done=arr2[4];
+		}
+		
+		
+		
+		objArray [i]= obj;
+	console.log ("-----------");
+		console.log(obj);
+	}
+	
+console.log ("%%%%%%%%%%%%%%%%%%%%%%");
+console.log(objArray);
+
+t=arr[0];
+
+ss=t.split(',');
+
+data[0]=
+{
+    date: new Date(),
+    standard: ss[1],
+    done: ss[2],
+  };
+
+data[1]=
+{
+    date: new Date(),
+    standard: ss[1],
+    done: ss[2],
+  };
+
+
+data[2]=
+{
+    date: new Date(),
+    standard: ss[1],
+    done: ss[2],
+  };
+
+
+
+//console.log (data);
+renderBDC(objArray, config);
+
+/*]]>*/
+</script>
+
+</html>

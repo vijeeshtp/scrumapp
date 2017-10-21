@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Project Creation</title>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/css/registration.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body style="background-color: #cacaca;">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+
+	<!-- 
+	<form th:action="@{/}" method="get">
+		<button class="btn btn-md btn-warning btn-block" type="Submit">Login</button>
+	</form>	
+ -->
+
+
+
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<form autocomplete="off" action="#"
+					th:action="@{/project/assign/user}" th:object="${project}"
+					method="post" class="form-horizontal" role="form">
+					<h2>FORM PROJECT TEAM</h2>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							PROJECT ID &nbsp; : &nbsp; <label th:text="*{id}"
+								class="validation-message"></label> <input type="hidden"
+								th:field="*{id}" placeholder="NAME" class="form-control" />
+						</div>
+					</div>
+
+
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							PROJECT NAME &nbsp; : &nbsp; <label th:text="*{title}"
+								class="validation-message"></label>
+							<!-- <input type="text" th:field="*{project.title}" 
+								placeholder="NAME" class="form-control" /> -->
+						</div>
+					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<label th:if="${#fields.hasErrors('description')}"
+								th:errors="*{description}" class="validation-message"></label> <input
+								type="text" th:field="*{description}" placeholder="Description"
+								class="form-control" />
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							Form Team Members <select class="form-control"
+								aria-describedby="status-addon" id="assignedUser"
+								name="assignedUser" th:field="*{assignedUser}">
+								<option th:each="user : ${users}" th:value="${user.id}"
+									th:text="${user.id}+' : '+${user.email}"></option>
+							</select>
+
+						</div>
+					</div>
+
+<!-- 
+					<div class="form-group">
+						<div class="col-sm-9">
+
+							Scrum Master <select class="form-control"
+								aria-describedby="status-addon" id="assignedUser"
+								name="assignedUser" th:field="*{assignedUser}">
+								<option th:each="user : ${users}" th:value="${user.id}"
+									th:text="${user.id}+' : '+${user.email}"></option>
+							</select>
+
+						</div>
+					</div> -->
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							<button type="submit" class="btn btn-primary btn-block">Assign
+								User</button>
+						</div>
+					</div>
+
+					<span th:utext="${successMessage}"></span>
+
+
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th>User Id</th>
+				<th>Team Members</th>
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr th:each="projectUser : ${projectUsers}">
+				<td th:text="${projectUser.id}"></td>
+				<td th:text="${projectUser.email}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+</body>
+</html>

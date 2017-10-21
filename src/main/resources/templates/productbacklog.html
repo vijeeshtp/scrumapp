@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+<title>My Scrum App</title>
+<link rel="stylesheet" type="text/css" th:href="@{/css/home.css}" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<body style="background-color: #cacaca;">
+	<div th:replace="fragments/header :: header">&nbsp;</div>
+	
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+</div>
+		</div>
+				
+		<div class="panel-body">
+
+
+			<div class="panel-group" style="margin-top: 40px">
+
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<span>Product Backlog</span>
+					</div>
+					<div class="panel-body">
+
+						<table class="table table-hover">
+
+								<thead>
+									<tr>
+										<th>story Id</th>
+										<th>name</th>
+										<th>Description</th>
+										<th>type</th>
+										<th>priority</th>
+										<th>assigned to</th>
+										<th>status</th>
+
+										<th></th>
+										<th></th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="story : ${storys}">
+										<td th:text="${story.id}"></td>
+										<td th:text="${story.name}"></td>
+										<td th:text="${story.description}"></td>
+										<td th:text="${story.type}"></td>
+										<td th:text="${story.priority}"></td>
+										<td th:text="${story.user.name}"></td>
+										<td th:text="${story.status}"></td>
+										<td><a th:href="${'/story/edit/' + {story.id}}">MOVE TO NEXT SPRINT
+										</a></td>
+										<td><a th:href="${'/story/delete/' + {story.id}}">delete
+										</a></td>
+
+									</tr>
+								</tbody>
+							</table>
+						
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<hr />
+	<div th:replace="fragments/footer :: footer">&nbsp;</div>
+
+</body>
+</html>
