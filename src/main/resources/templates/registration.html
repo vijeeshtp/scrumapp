@@ -33,12 +33,13 @@
 							SET ROLE <select class="form-control"
 								aria-describedby="status-addon" id="user_role" name="user_role"
 								th:field="*{user_role}">
-								<option th:value="productowner" th:text="product-owner"></option>
-								<option th:value="developers" th:text="developers"></option>
-								<option th:value="projectuser" th:text="project-user"></option>
+								<option th:value="ADMIN" th:text="Admin"></option>
+								<option th:value="SMASTER" th:text="Scrum Master"></option>
+								<option th:value="USER" th:text="User"></option>
+								<option th:value="POWNER" th:text="Product Owner"></option>
+								<option th:value="CLIENT" th:text="Client"></option>
 							</select>
-
-						</div>
+		</div>
 					</div>
 
 

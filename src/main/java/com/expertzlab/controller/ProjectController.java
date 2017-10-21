@@ -235,13 +235,14 @@ public class ProjectController {
 		//int totalBurn = numberOfdays*burnRate;
 		
 		ChartPoint point1 = new ChartPoint();
-		point1.setDate(dateTime1.minusDays(1).toDate());
+		point1.setDate( new DateTime(startDate).minusDays(1).toDate());
 		point1.setStandard(0);
 		point1.setDone(0);
 		points.add(point1);
 		
 		int stdBurned=0;
 		for (Date day: allDates) {
+			System.out.println("day>>>>>"+ day);
 			ChartPoint point = new ChartPoint();
 			point.setDate(day);
 			stdBurned= stdBurned+burnRate;
@@ -252,31 +253,45 @@ public class ProjectController {
 			
 			for (Story story:stories) {
 				if (story.getStatus().equals("closed") ){
+					/*
+					 Date storyCloseDate= story.getResolvedDate();
 					
-					
-					Date storyCloseDate= story.getResolvedDate();
-					
-					//Date startDate, endDate;
-
 					if ( storyCloseDate.equals(startDate) || 
 							storyCloseDate.equals(day) || 
 					    (storyCloseDate.after(startDate) && storyCloseDate.before(day) )){
 						
 						burned=burned+story.getDuration();//Duration is story point
 						
-						
 					}
+					*/
+					
+					DateTime storyCloseDate=  new DateTime (story.getResolvedDate());
+					
+					
+					if ( storyCloseDate.toLocalDate(). isEqual(new DateTime(startDate).toLocalDate()) || 
+							storyCloseDate.toLocalDate(). isEqual(new DateTime(day).toLocalDate()) || 
+					    (storyCloseDate.isAfter(new DateTime(startDate)) && storyCloseDate.isBefore(new DateTime(day)) )){
+						
+						burned=burned+story.getDuration();//Duration is story point
+						
+					}	
+					
 				}
 				
 			}
 			
-			if (burned>0) {
+			//if (burned>0) {
 				point.setDone(burned);
 					
-			}
-			else {
+			//}
+			//else {
+			//	point.setDone(null);
+			//}
+			
+			if (day.getTime()> new Date ().getTime()){
 				point.setDone(null);
 			}
+			
 			points.add(point);
 		}
 		
