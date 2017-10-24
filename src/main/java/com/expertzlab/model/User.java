@@ -1,4 +1,5 @@
 package com.expertzlab.model;
+import java.util.Date;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -12,11 +13,13 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
+import org.springframework.format.annotation.DateTimeFormat;
 
 
 @Entity
@@ -33,6 +36,8 @@ public class User {
 	@NotEmpty(message = "*Please provide an email")
 	private String email;
 	
+	
+
 	@Column(name = "password")
 	@Length(min = 5, message = "*Your password must have at least 5 characters")
 	@NotEmpty(message = "*Please provide your password")
@@ -177,7 +182,4 @@ public class User {
 		this.projects = projects;
 	}
 	
-	
-	
-
 }

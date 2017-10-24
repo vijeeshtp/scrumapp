@@ -17,30 +17,30 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li >
-                    <a href="#" th:href="@{/home}">Home</a>
+                    <a href="#" th:href="@{/home}">HOME</a>
                 </li>
                 
-                 <li >
+               <!--   <li >
                     <a href="#" th:href="@{/activity}">Activity</a>
                 </li>
                 
                  <li >
                     <a href="#" th:href="@{/scrum}">About Scrum</a>
-                </li>
+                </li>-->
+                 
+          	  <li >
+                    <a href="#" th:href="@{/user/edit}">VIEW PROFILE</a>
+                </li> 
                 
-                  <li >
-                    <a href="#" th:href="@{/contact}">Contact</a>
-                </li>
-                
-                 <li >
-                    <a href="#"  th:if="${role eq 'ADMIN'}" th:href="@{/registration}">Register</a>
-                    
+                <li >
+                    <a href="#"  th:if="${role eq 'ADMIN'}" th:href="@{/registration}">REGISTER</a>
                 </li>
                 
                 
                 <li >
-                    <a href="#" th:if="${role eq 'ADMIN'||role eq 'POWNER'}"th:href="@{/project}">Create Project</a>
+                    <a href="#" th:if="${role eq 'ADMIN'||role eq 'POWNER'||role eq 'SMASTER'}"th:href="@{/project}">CREATE PROJECT</a>
                 </li>
+                
              
             </ul>
             <ul class="nav navbar-nav navbar-right">

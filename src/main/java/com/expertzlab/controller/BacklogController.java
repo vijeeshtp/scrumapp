@@ -27,10 +27,6 @@ public class BacklogController {
 	@Autowired
 	private Util util;
 	
-
-
-
-	
 	@RequestMapping(value={ "/project/productbacklog/{id}"}, method = RequestMethod.GET)
 	public ModelAndView productbacklog(@PathVariable("id") int id){
 		 Project project = projectService.findById(id);
@@ -49,7 +45,7 @@ public class BacklogController {
 		 Project project = projectService.findById(id);
 		 ModelAndView modelAndView = new ModelAndView();
 	  modelAndView.addObject("sprints", project.getSprints());
-	   modelAndView.addObject("sprint", project.getSprints());
+	  modelAndView.addObject("project", project);
 		modelAndView.setViewName("sprintbacklog");
 		modelAndView.addObject("role", util.getRole());
 		return modelAndView;

@@ -21,7 +21,7 @@
 		<div class="row">
 			<div class="col-md-6 col-md-offset-3">
 			
-				<form autocomplete="off" action="#" th:action="@{/sprint/create}"
+				<form autocomplete="off" action="#" th:action="@{/sprint/update}"
 					th:object="${sprint}" method="post" class="form-horizontal"
 					role="form">
 
@@ -30,7 +30,7 @@
 					<br />
 					<br />
 					<br />
-					<h2>ADD NEW-SPRINT</h2>
+					<h2>EDIT SPRINT</h2>
 
 					<div class="form-group">
 						<div class="col-sm-9">
@@ -51,22 +51,9 @@
 								placeholder="NAME" class="form-control" /> -->
 						</div>
 					</div>
-
-				<!-- 	
-					<div class="form-group">
-						<div class="col-sm-9">
-							SCRUM MASTER<select class="form-control"
-								aria-describedby="status-addon" id="master" name="master"
-								th:field="*{master}">
-								<option th:each="user : *{project.users}" th:value="${user.id}"
-									th:text="${user.id}+' : '+${user.email}"></option>
-							</select>
-
-						</div>
-					</div> -->
 					
 
-					<div class="form-group">
+			<!-- 		<div class="form-group">
 						<div class="col-sm-9">
 
 							<label th:if="${#fields.hasErrors('noOfDays')}"
@@ -76,9 +63,10 @@
 
 						</div>
 
-					</div>
+					</div> -->
+					
 
-	<div class="form-group">
+					<div class="form-group">
 						<div class="col-sm-9">
 							<label th:if="${#fields.hasErrors('name')}"
 								th:errors="*{name}" class="validation-message"></label>
@@ -137,7 +125,7 @@
 
 					<div class="form-group">
 						<div class="col-sm-9">
-							<button type="submit" class="btn btn-primary btn-block">CREATE
+							<button type="submit" class="btn btn-primary btn-block">UPDATE
 								SPRINT</button>
 					</div>
 				</div>
@@ -162,14 +150,10 @@
 						<table class="table table-hover">
 							<thead>
 								<tr>
-									<th>Sprint id</th>
-								
-									<th>Number Of Days</th>
+									<th>Name</th>
 									<th>Sprint Description</th>
 									<th>Start Date</th>
 									<th>End Date</th>
-
-
 									<th></th>
 									<th></th>
 									<th></th>
@@ -178,12 +162,16 @@
 							</thead>
 							<tbody>
 								<tr th:each="sprint : ${sprints}">
-									<td th:text="${sprint.id}"></td>
-									<!-- <td th:text="${sprint.sprintNo}"></td> -->
-									<td th:text="${sprint.noOfDays}"></td>
+									<td th:text="${sprint.name}"></td>
+									<!-- <td th:text="${sprint.sprintNo}"></td> 
+									<td th:text="${sprint.noOfDays}"></td>-->
 									<td th:text="${sprint.sprintDesc}"></td>
 									<td th:text="${sprint.startDate}"></td>
 									<td th:text="${sprint.endDate}"></td>
+									<td><a th:href="${'/sprint/edit/' + {sprint.id}}">edit
+											</a></td>
+											<td><a th:href="${'/sprint/delete/' + {sprint.id}}">delete
+											</a></td>
 
 
 									<!--   

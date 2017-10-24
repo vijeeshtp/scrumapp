@@ -160,6 +160,7 @@ public class StoryController {
 			modelAndView.addObject("projects", projectService.findAll());
 			modelAndView.setViewName("story-edit");
 			modelAndView.addObject("role", util.getRole());
+			modelAndView.addObject("enabled",  util.getRole().equals("SMASTER"));
 			return modelAndView;
 	    }
 		

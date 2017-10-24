@@ -15,6 +15,9 @@
 
 <body style="background-color: #cacaca;">
 	<div th:replace="fragments/header :: header">&nbsp;</div>
+	<br />
+	<br />
+	<br />
 
 	<div class="container">
 		<div>
@@ -22,10 +25,8 @@
 
 				<div class="form-group">
 					<div class="col-sm-9">
-						<br/>	<br/>
-							<label th:text="PROJECT-ID" ></label>&nbsp;:&nbsp;
-						
-						<label th:text="${project.id}" ></label>
+						<br /> <br /> <label th:text="PROJECT-ID"></label>&nbsp;:&nbsp; <label
+							th:text="${project.id}"></label>
 					</div>
 
 
@@ -36,35 +37,31 @@
 			<table class="table table-hover">
 
 				<tr>
-					<td><a th:href="${'/project/createstory/' + {project.id}}">Create
+
+
+					<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'}" th:href="${'/project/createsprint/' + {project.id}}">Create
+							sprint </a></td>
+							   
+
+
+					<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'CLIENT'|| role eq 'USER'}" th:href="${'/project/createstory/' + {project.id}}">Create
 							Story </a></td>
 
 
-					<td><a th:href="${'/project/createsprint/' + {project.id}}">Create
-							sprint </a></td>
-							
-							<td><a th:href="${'/project/productbacklog/' + {project.id}}">status of the project
-							</a></td>
+					<td><a th:href="${'/project/productbacklog/' + {project.id}}">status
+							of the project </a></td>
 
 					<td><a th:href="${'/project/productbacklog/' + {project.id}}">Product
 							Backlog</a></td>
 
-					<td><a th:href="${'/project/productbacklog/' + {project.id}}">sprint
+					<td><a th:href="${'/project/sprintbacklog/' + {project.id}}">sprint
 							Backlog</a></td>
-
-<!-- 
-					<td><a th:href="${'/project/createstory/' + {project.id}}">burn
-							down chart</a></td> -->
-							
-							
-					<td><a th:href="${'/myprojects/burndown'}">burn
-							down chart</a></td>					
 				</tr>
 			</table>
-	
+
 		</div>
 
-			<div class="panel-body">
+		<div class="panel-body">
 
 
 			<div class="panel-group" style="margin-top: 40px">
@@ -84,6 +81,8 @@
 									<th>Description</th>
 									<th>Duration</th>
 									<th>Status</th>
+									<th>Sprint </th>
+									
 									<!--  <th>Assigned To</th> -->
 									<th></th>
 									<th></th>
@@ -98,47 +97,20 @@
 									<td th:text="${story.description}"></td>
 									<td th:text="${story.duration}"></td>
 									<td th:text="${story.status}"></td>
-									<td><a th:href="${'/story/edit/' + {story.id}}">open
+									<td th:text="${story.sprint.name}"></td>
+									<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'USER'}" th:href="${'/story/edit/' + {story.id}}">open
 											story</a></td>
 
 								</tr>
 							</tbody>
 						</table>
-					
+
 					</div>
 				</div>
 			</div>
 		</div>
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-			<div class="panel-body">
+		<div class="panel-body">
 
 
 			<div class="panel-group" style="margin-top: 40px">
@@ -154,8 +126,8 @@
 							<thead>
 								<tr>
 									<th>Sprint id</th>
-									
-									<th>Number Of Days</th>
+
+									<!-- 		<th>Number Of Days</th> -->
 									<th>Sprint Description</th>
 									<th>Start Date</th>
 									<th>End Date</th>
@@ -170,29 +142,28 @@
 							<tbody>
 								<tr th:each="sprint : ${sprints}">
 									<td th:text="${sprint.id}"></td>
-								
-									<td th:text="${sprint.noOfDays}"></td>
+
+									<!-- 	<td th:text="${sprint.noOfDays}"></td> -->
 									<td th:text="${sprint.sprintDesc}"></td>
-									<td th:text="${sprint.startDate}"></td>
-									<td th:text="${sprint.endDate}"></td>
+									<td  th:text="${#dates.format(sprint.startDate, 'dd-MMM-yyyy')}"></td>
+									<td th:text="${#dates.format(sprint.endDate, 'dd-MMM-yyyy')}" ></td>
 
-<td><a th:href="${'/sprint/backlog/' + {sprint.id}}">Sprint Backlog</a></td>
-<td><a th:href="${'/sprint/burndown/' + {sprint.id}}">Sprint Burn-down Chart</a></td>
-<td><a th:href="${'/sprint/edit/' + {sprint.id}}">Open Sprint</a></td>
+									<td><a th:href="${'/sprint/backlog/' + {sprint.id}}">Sprint
+											Backlog</a></td>
+									<td><a th:href="${'/sprint/burndown/' + {sprint.id}}">Sprint
+											Burn-down Chart</a></td>
+									<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'USER'}" th:href="${'/sprint/edit/' + {sprint.id}}">Open
+											Sprint</a></td>
 
-								
+
 								</tr>
 							</tbody>
-				</table>
+						</table>
 
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		
-		
-		
 	</div>
 
 	<div th:replace="fragments/footer :: footer">&nbsp;</div>

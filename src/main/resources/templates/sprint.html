@@ -63,7 +63,7 @@
 							</select>
 
 						</div>
-					</div> -->
+					</div>
 					
 
 					<div class="form-group">
@@ -75,59 +75,72 @@
 								placeholder="" class="form-control" />
 
 						</div>
-
 					</div>
+					 -->
 
-	<div class="form-group">
+					<div class="form-group">
 						<div class="col-sm-9">
-							<label th:if="${#fields.hasErrors('name')}"
+							NAME <label th:if="${#fields.hasErrors('name')}"
 								th:errors="*{name}" class="validation-message"></label>
-							NAME<input type="text" th:field="*{name}"
+								<input type="text" th:field="*{name}"
 								placeholder="" class="form-control" />
-
 						</div>
 					</div>
 
 
 					<div class="form-group">
 						<div class="col-sm-9">
-							<label th:if="${#fields.hasErrors('sprintDesc')}"
+							DESCRIPTION <label th:if="${#fields.hasErrors('sprintDesc')}"
 								th:errors="*{sprintDesc}" class="validation-message"></label>
-							DESCRIPTION <input type="text" th:field="*{sprintDesc}"
+							<input type="text" th:field="*{sprintDesc}"
 								placeholder="" class="form-control" />
 						</div>
 					</div>
+					
+					
+					
+					<div class="form-group">
+						<div class="col-sm-9">
+							STATUS <select class="form-control"
+								aria-describedby="status-addon" id="status" name="status"
+								th:field="*{status}">
+								<option th:value="open" th:text="open"></option>
+								<option th:value="in-progress" th:text="in-progress"></option>
+								<option th:value="closed" th:text="closed"></option>
+								<option th:value="resolved" th:text="resolved"></option>
+							</select>
+
+						</div>
+					</div>
+					
+					
 
 					<div class="form-group">
 						<div class="col-sm-9">
-							<label th:if="${#fields.hasErrors('startDate')}"
+							SPRINT START DATE (DD/MM/YYYY)<label th:if="${#fields.hasErrors('startDate')}"
 								th:errors="*{startDate}" class="validation-message"></label>
-							SPRINT START DATE <input type="text" th:field="*{startDate}"
+							<input type="text" th:field="*{startDate}"
 								placeholder="" class="form-control"  />
-
 						</div>
-
 					</div>
-
+					
+					
 					<div class="form-group">
 						<div class="col-sm-9">
-
-							<label th:if="${#fields.hasErrors('endDate')}"
+							SPRINT END DATE (DD/MM/YYYY)<label th:if="${#fields.hasErrors('endDate')}"
 								th:errors="*{endDate}" class="validation-message"></label>
-							SPRINT END DATE<input type="text" th:field="*{endDate}"
+							 <input type="text" th:field="*{endDate}"
 								placeholder="" class="form-control"  />
-
 						</div>
-
 					</div>
 					
 					
 					<div class="form-group">
 						<div class="col-sm-9">
-
+							BURN RATE(PER DAY)
 							<label th:if="${#fields.hasErrors('burnperDay')}"
 								th:errors="*{burnperDay}" class="validation-message"></label>
-							DAILY BURN(per day)<input type="text" th:field="*{burnperDay}"
+							<input type="text" th:field="*{burnperDay}"
 								placeholder="" class="form-control" />
 
 						</div>
@@ -163,13 +176,10 @@
 							<thead>
 								<tr>
 									<th>Sprint id</th>
-								
-									<th>Number Of Days</th>
 									<th>Sprint Description</th>
+									<th>Status</th>
 									<th>Start Date</th>
 									<th>End Date</th>
-
-
 									<th></th>
 									<th></th>
 									<th></th>
@@ -179,20 +189,15 @@
 							<tbody>
 								<tr th:each="sprint : ${sprints}">
 									<td th:text="${sprint.id}"></td>
-									<!-- <td th:text="${sprint.sprintNo}"></td> -->
-									<td th:text="${sprint.noOfDays}"></td>
 									<td th:text="${sprint.sprintDesc}"></td>
-									<td th:text="${sprint.startDate}"></td>
-									<td th:text="${sprint.endDate}"></td>
+									<td th:text="${sprint.status}"></td>
+									<td  th:text="${#dates.format(sprint.startDate, 'dd-MMM-yyyy')}"></td>
+									<td th:text="${#dates.format(sprint.endDate, 'dd-MMM-yyyy')}" ></td>
 									<td><a th:href="${'/sprint/edit/' + {sprint.id}}">edit</a></td>
 									<td><a th:href="${'/sprint/delete/' + {sprint.id}}">delete</a></td>
-
-
-									
 								</tr>
 							</tbody>
-				</table>
-
+						</table>
 					</div>
 				</div>
 			</div>

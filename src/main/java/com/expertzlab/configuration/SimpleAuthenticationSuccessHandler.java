@@ -34,7 +34,8 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			} else if(authority.getAuthority().equals("ADMIN")) {
+			} 
+			else if(authority.getAuthority().equals("ADMIN")) {
 				try {
 					redirectStrategy.sendRedirect(arg0, arg1, "/admin/home");
 				} catch (Exception e) {
@@ -42,9 +43,27 @@ public class SimpleAuthenticationSuccessHandler implements AuthenticationSuccess
 					e.printStackTrace();
 				}
 			}
-			 else if(authority.getAuthority().equals("OWNER")) {
+			 else if(authority.getAuthority().equals("SHOLDER")) {
+					try {
+						redirectStrategy.sendRedirect(arg0, arg1, "/sholder/home");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			
+			 else if(authority.getAuthority().equals("POWNER")) {
 					try {
 						redirectStrategy.sendRedirect(arg0, arg1, "/owner/home");
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			
+			 else if(authority.getAuthority().equals("SMASTER")) {
+					try {
+						redirectStrategy.sendRedirect(arg0, arg1, "/master/home");
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();

@@ -21,7 +21,7 @@
 
 <body style="background-color: #cacaca;">
 <div th:replace="fragments/header :: header">&nbsp;</div>
-
+cheerantansey@gmail.com
 
 <div class="container">
 		<div class="row">
@@ -61,14 +61,9 @@
 								placeholder="TITLE" class="form-control" />
 						</div>
 					</div>
-
-
-
-
-
-
 					
-						<div class="form-group">
+					
+					<div class="form-group">
 						<div class="col-sm-9">
 
 							STORY ID &nbsp; : &nbsp; <label th:text="*{id}"
@@ -77,19 +72,8 @@
 								placeholder="ID" class="form-control" />
 						</div>
 					</div>
-
-					<div class="form-group">
-						<div class="col-sm-9">
-							STORY TYPE <select class="form-control"
-								aria-describedby="status-addon" id="type" name="type"
-								th:field="*{type}">
-								<option th:value="defect" th:text="defect "></option>
-								<option th:value="tech" th:text="technical"></option>
-								<option th:value="user" th:text="User"></option>
-							</select>
-						</div>
-					</div>
 					
+							
 					<div class="form-group">
 						<div class="col-sm-9">
 							<label th:if="${#fields.hasErrors('name')}"
@@ -107,6 +91,19 @@
 								placeholder="Description" class="form-control" />
 						</div>
 					</div>
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							STORY TYPE <select class="form-control"
+								aria-describedby="status-addon" id="type" name="type"
+								th:field="*{type}">
+								<option th:value="defect" th:text="defect "></option>
+								<option th:value="tech" th:text="technical"></option>
+								<option th:value="user" th:text="User"></option>
+							</select>
+						</div>
+					</div>
+			
 
 
 					<div class="form-group">
@@ -136,13 +133,26 @@
 						</div>
 					</div>
 
-
-					<div class="form-group">
+					<div th:if="${enabled}" class="form-group">
 						<div class="col-sm-9">
-							ASSIGNED TO SPRINT <select class="form-control"
+							ASSIGNED TO SPRINT <select  class="form-control"
 								aria-describedby="status-addon" id="sprint" name="sprint"
 								th:field="*{sprint}">
 								<option th:each="sprint : *{project.sprints}"
+									th:value="${sprint.id}"
+									th:text="${sprint.id}+' : '+${sprint.sprintNo}"></option>
+							</select>
+
+						</div>
+					</div>
+
+
+					<div th:if="${!enabled}" class="form-group">
+						<div class="col-sm-9">
+							ASSIGNED TO SPRINT 111 <select class="form-control"
+								aria-describedby="status-addon" id="sprint" name="sprint"
+								th:field="*{sprint}">
+								<option  disabled th:each="sprint : *{project.sprints}"
 									th:value="${sprint.id}"
 									th:text="${sprint.id}+' : '+${sprint.sprintNo}"></option>
 							</select>
@@ -170,7 +180,7 @@
 						<div class="col-sm-9">
 							<label th:if="${#fields.hasErrors('duration')}"
 								th:errors="*{duration}" class="validation-message"></label>
-							ESTIMATED DURATION<input type="text" th:field="*{duration}"
+							ESTIMATED STORY POINT<input type="text" th:field="*{duration}"
 								placeholder="Duration" class="form-control" />
 						</div>
 					</div>
@@ -229,7 +239,7 @@
 											<th>Type</th>
 											<th>Priority</th>
 											<th>Assigned to</th>
-											<th>Estimated Duration</th>
+											<th>Story Point</th>
 											<th>Remaining Hours</th>
 											<th>Actual Hours</th>
 											<th>Status</th>

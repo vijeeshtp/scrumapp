@@ -64,9 +64,9 @@
 										<td th:text="${story.priority}"></td>
 										<td th:text="${story.user.name}"></td>
 										<td th:text="${story.status}"></td>
-										<td><a th:href="${'/story/edit/' + {story.id}}">MOVE TO NEXT SPRINT
+										<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'USER'}" th:href="${'/story/edit/' + {story.id}}">MOVE TO NEXT SPRINT
 										</a></td>
-										<td><a th:href="${'/story/delete/' + {story.id}}">delete
+										<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'}" th:href="${'/story/delete/' + {story.id}}">delete
 										</a></td>
 
 									</tr>

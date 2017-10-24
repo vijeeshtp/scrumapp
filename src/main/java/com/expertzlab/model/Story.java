@@ -32,29 +32,22 @@ public class Story {
 	private int id;
 	
 	@Column(name = "type")
-	@NotEmpty
+	@NotEmpty(message = "*Please provide the type for the story")
 	@NotNull
 	private String type;
 	
 	
 	@Column(name = "name")
-	@NotEmpty
+	@NotEmpty(message = "*Please provide the Name for the story")
 	@NotNull
 	private String name;
 	
-	
+	//@NotEmpty
 	@Column(name="resolved_date")
 	private Date resolvedDate;
-	
-	
-	
-	
-	
-
 
 	
 	
-
 	public Date getResolvedDate() {
 		return resolvedDate;
 	}
@@ -84,7 +77,7 @@ public class Story {
 	
 	
 	@Column(name = "status")
-	@NotEmpty
+	@NotEmpty//(message = "*Please provide the status of the story")
 	@NotNull
 	private String status;
 	
@@ -106,7 +99,7 @@ public class Story {
 	
 	
 	@Column(name = "assign_to")
-	@NotEmpty
+	@NotEmpty//(message = "*Please Assign the Story to any Developer")
 	@NotNull
 	private String assigned;
 	

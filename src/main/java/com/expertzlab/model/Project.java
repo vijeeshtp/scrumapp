@@ -29,8 +29,7 @@ public class Project {
 	private int id;
 	
 	@Column(name = "title")
-	@NotEmpty
-	@NotNull
+	@NotEmpty(message = "*Please provide a title")
 	private String title;
 	
 	
@@ -49,7 +48,7 @@ public class Project {
 	}
 
 
-	@NotEmpty
+	@NotEmpty(message = "*Please provide description about the project")
 	@NotNull
 	@Column(name = "description")
 	private String description;

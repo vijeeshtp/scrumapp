@@ -98,8 +98,6 @@ public class ProjectController {
 		} else {
 			projectService.saveProject(project);
 			modelAndView.addObject("successMessage", "Project has been updated successfully");
-			//modelAndView.addObject("user", new User());
-			//modelAndView.setViewName("registration");
 			modelAndView.setViewName("project-edit");
 			modelAndView.addObject("projects", projectService.findAll());
 		}
@@ -157,6 +155,7 @@ public class ProjectController {
         
        // projectToBeUpdated.getUsers().addAll(project.getUsers());
         projectService.saveProject(projectToBeUpdated,user);  
+        modelAndView.addObject("successMessage", "New Member added");
         
         modelAndView.addObject("users", userService.findAll());
         modelAndView.addObject("projectUsers", projectService.findById(project.getId()).getUsers());
@@ -327,31 +326,5 @@ public class ProjectController {
 	}
 	
 	
-	void toDelete() {
-		
-
-		String json="";
-		
-		List<ChartPoint> points =new ArrayList<>();
-		//points.add(new ChartPoint(new Date(2017,10,02) , 0, 0));
-		//points.add(new ChartPoint(new Date(2017,10,02), 0, 0));
-		//points.add(new ChartPoint(new Date(2017,10,02), 0, 0));
-		//points.add(new ChartPoint(new Date(2017,10,02), 0, 0));
 	
-		
-		ObjectMapper objectMapper = new ObjectMapper();
-    	//Set pretty printing of json
-    	objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-    	
-    	try {
-			 json = objectMapper.writeValueAsString(points);
-			
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-		
-	}
 }

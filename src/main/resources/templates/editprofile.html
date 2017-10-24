@@ -22,7 +22,7 @@
 			<div class="col-md-6 col-md-offset-3">
 
 
-				<form autocomplete="off" action="#" th:action="@{/registration}"
+				<form autocomplete="off" action="#" th:action="@{/user/edit}"
 					th:object="${user}" method="post" class="form-horizontal"
 					role="form">
 					<br />
@@ -30,10 +30,7 @@
 					<br />
 					<br />
 					<h2>Registration Form</h2>
-
 					
-
-
 					<div class="form-group">
 						<div class="col-sm-9">
 							<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}"
@@ -66,19 +63,75 @@
 					
 					<div class="form-group">
 						<div class="col-sm-9">
-							SET ROLE <select class="form-control"
-								aria-describedby="status-addon" id="user_role" name="user_role"
-								th:field="*{user_role}">
-								<option th:value="ADMIN" th:text="Admin"></option>
-								<option th:value="SMASTER" th:text="Scrum-Master"></option>
-								<option th:value="USER" th:text="User"></option>
-								<option th:value="POWNER" th:text="Product-Owner"></option>
-								<option th:value="SHOLDER" th:text="Stake-Holder"></option>
-							</select>
+							DATE OF BIRTH(DD/MM/YYYY)<label
+								th:if="${#fields.hasErrors('date _of_birth')}"
+								th:errors="*{date _of_birth}" class="validation-message"></label>
+							<input type="text" th:field="*{date _of_birth}" placeholder=""
+								class="form-control" />
+						</div>
+					</div> 
+					
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{address}" placeholder="Address"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('address')}" th:errors="*{address}"
+								class="validation-message"></label>
+						</div>
+					</div> 
+					
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{home}" placeholder="House Name"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('home')}" th:errors="*{home}"
+								class="validation-message"></label>
+						</div>
+					</div> 
+					
+
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{street}" placeholder="Street"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('street')}" th:errors="*{street}"
+								class="validation-message"></label>
 						</div>
 					</div>
+					
 
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{district}" placeholder="District"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('district')}" th:errors="*{district}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
 
+					<div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{state}" placeholder="State"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('state')}" th:errors="*{state}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+
+					 <div class="form-group">
+						<div class="col-sm-9">
+							<input type="text" th:field="*{pin}" placeholder="Pin"
+								class="form-control" /> <label
+								th:if="${#fields.hasErrors('pin')}" th:errors="*{pin}"
+								class="validation-message"></label>
+						</div>
+					</div>
+					
+					
 					<div class="form-group">
 						<div class="col-sm-9">
 							<input type="password" th:field="*{password}"
@@ -87,6 +140,7 @@
 								class="validation-message"></label>
 						</div>
 					</div>
+					
 
 					<div class="form-group">
 						<div class="col-sm-9">
@@ -105,7 +159,8 @@
 								User</button>
 						</div>
 					</div>
-
+					
+										
 					<span th:utext="${successMessage}"></span>
 				</form>
 			</div>

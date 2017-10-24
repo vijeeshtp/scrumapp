@@ -110,7 +110,7 @@ public class LoginController {
 	}
 	
 
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
+	@RequestMapping(value= {"/admin/home"}, method = RequestMethod.GET)
 	public ModelAndView adminHome(){
 		//List<Project> aaa= new ArrayList();
 		ModelAndView modelAndView = new ModelAndView();
@@ -124,8 +124,8 @@ public class LoginController {
 		modelAndView.setViewName("/home");
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/user/home", method = RequestMethod.GET)
+
+	@RequestMapping(value= {"/user/home","/sholder/home","/owner/home","/master/home"}, method = RequestMethod.GET)
 	public ModelAndView userHome(){
 		//List<Project> aaa= new ArrayList();
 		ModelAndView modelAndView = new ModelAndView();
@@ -141,6 +141,15 @@ public class LoginController {
 	}
 	
 	
-	
-	
+	@RequestMapping(value="/user/edit", method = RequestMethod.GET)
+	public ModelAndView editprofile(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("/editprofile");
+		return modelAndView;
 	}
+		
+		
+		
+	}
+	
+	

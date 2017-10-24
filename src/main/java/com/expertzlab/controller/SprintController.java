@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -62,7 +63,26 @@ public class SprintController {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("sprint");
 		
+		DateTime sprintStartDate= new DateTime( sprint.getStartDate());
+		DateTime sprintEndDate= new DateTime( sprint.getStartDate());
+		
+		if (sprintStartDate.isBefore( new DateTime (new Date()))) {
+			bindingResult
+			.rejectValue("startDate", "error.sprint",
+					"Start date should not be less than current date");
+		}
+		
+		if (sprintEndDate.isBefore( new DateTime (new Date()))) {
+			bindingResult
+			.rejectValue("endDate", "error.sprint",
+					"End date should not be less than current date");
+		}
+		
+		
 		if (bindingResult.hasErrors()) {
+			
+		
+			
 			//modelAndView.setViewName("registration");
 		}else {
 			   int projectid= sprint.getProject().getId();
@@ -86,7 +106,7 @@ public class SprintController {
 		
 		Sprint sprint =sprintService.findById(id);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("storys", sprint.getStories());
+		modelAndView.addObject("sprints", sprint.getStories());
 	    modelAndView.addObject("role", util.getRole());
 	    modelAndView.setViewName("sprintbacklog");
 		return modelAndView;
@@ -146,6 +166,7 @@ public class SprintController {
 		modelAndView.addObject("role", util.getRole());
 		return modelAndView;
     }
+	
 	
 }
 

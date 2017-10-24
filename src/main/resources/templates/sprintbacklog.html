@@ -34,7 +34,7 @@
 
 				<div class="panel panel-primary">
 					<div class="panel-heading">
-						<span>Project Stories</span>
+						<span>Sprint Stories</span>
 					</div>
 					<div class="panel-body">
 
@@ -42,13 +42,15 @@
 
 									<thead>
 										<tr>
-											<th>story Id</th>
-											<th>name</th>
+										<!-- 	<th>story Id</th> -->
+											<th>Name</th>
 											<th>Description</th>
-											<th>type</th>
-											<th>priority</th>
-											<th>assigned to</th>
-											<th>status</th>
+											<th>Type</th>
+											<th>Priority</th>
+											<th>Assigned to</th>
+											<th>Status</th>
+											<th>Story Point</th>
+											<th>
 
 											<th></th>
 											<th></th>
@@ -58,13 +60,14 @@
 									</thead>
 									<tbody>
 										<tr th:each="story : ${storys}">
-											<td th:text="${story.id}"></td>
+											<!-- <td th:text="${story.id}"></td> -->
 											<td th:text="${story.name}"></td>
 											<td th:text="${story.description}"></td>
 											<td th:text="${story.type}"></td>
 											<td th:text="${story.priority}"></td>
 											<td th:text="${story.user.name}"></td>
 											<td th:text="${story.status}"></td>
+											<td th:text="${story.duration}"></td>
 											<td><a th:href="${'/story/edit/' + {story.id}}">edit
 											</a></td>
 											<td><a th:href="${'/story/delete/' + {story.id}}">delete

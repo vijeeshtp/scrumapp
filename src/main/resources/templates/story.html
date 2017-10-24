@@ -27,7 +27,6 @@
 					th:object="${story}" method="post" class="form-horizontal"
 					role="form">
 
-
 					<br />
 					<br />
 					<br />
@@ -205,13 +204,14 @@
 									<th>story Id</th>
 									<th>name</th>
 									<th>Description</th>
-									<th>type</th>
-									<th>priority</th>
-									<th>assigned to</th>
-									<th>status</th>
+									<th>Type</th>
+									<th>Priority</th>
+									<th>Assigned to</th>
+									<th>Status</th>
+									<th>Story Points</th>
 									<th>Remaining Hours</th>
 									<th>Actual Hours</th>
-									<th>Status</th>
+									
 
 									<th></th>
 									<th></th>
@@ -236,7 +236,7 @@
 
 
 									<td><a th:href="${'/story/edit/' + {story.id}}">edit </a></td>
-									<td><a th:href="${'/story/delete/' + {story.id}}">delete
+									<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'}" th:href="${'/story/delete/' + {story.id}}">delete
 									</a></td>
 									
 
