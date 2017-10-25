@@ -35,6 +35,7 @@ public class SprintServiceImpl  implements SprintService {
 	@Override
 	public void saveSprint(Sprint sprint, Project project)
 	{
+		sprint.setStatus("open");
 		sprint.setProject(project);
 		sprintRepository.save(sprint);
 		project.getSprints().add(sprint);
@@ -64,14 +65,22 @@ public class SprintServiceImpl  implements SprintService {
 		sprint.setSprintDesc(inSprint.getSprintDesc());
 		sprint.setStartDate(inSprint.getStartDate());
 		sprint.setEndDate(inSprint.getEndDate());
-		sprintRepository.save(sprint);
-		
+		sprintRepository.save(sprint);	
 	}
+	
+	
+	public void releaseSprint(Sprint sprint) {
+		sprint.setStatus("released");
+		sprintRepository.save(sprint);		
+	}
+	
 
 	@Override
 	public void deleteSprint(Sprint sprint) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	
 
 }

@@ -1,6 +1,7 @@
 package com.expertzlab.controller;
 
 import java.util.Date;
+import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -57,7 +58,7 @@ public class SprintController {
 		return modelAndView;
 	}
 
-	@RequestMapping("/sprint/create")
+	@RequestMapping(value="/sprint/create" , method = RequestMethod.POST)
     public ModelAndView createsprintsave( @Valid Sprint sprint, BindingResult bindingResult) {
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -66,12 +67,12 @@ public class SprintController {
 		DateTime sprintStartDate= new DateTime( sprint.getStartDate());
 		DateTime sprintEndDate= new DateTime( sprint.getStartDate());
 		
-		if (sprintStartDate.isBefore( new DateTime (new Date()))) {
+		/*if (sprintStartDate.isBefore( new DateTime (new Date()))) {
 			bindingResult
 			.rejectValue("startDate", "error.sprint",
 					"Start date should not be less than current date");
 		}
-		
+		*/
 		if (sprintEndDate.isBefore( new DateTime (new Date()))) {
 			bindingResult
 			.rejectValue("endDate", "error.sprint",
@@ -106,7 +107,8 @@ public class SprintController {
 		
 		Sprint sprint =sprintService.findById(id);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("sprints", sprint.getStories());
+		modelAndView.addObject("storys", sprint.getStories());
+		modelAndView.addObject("sprint", sprint);
 	    modelAndView.addObject("role", util.getRole());
 	    modelAndView.setViewName("sprintbacklog");
 		return modelAndView;
@@ -167,6 +169,55 @@ public class SprintController {
 		return modelAndView;
     }
 	
+	
+	
+
+	
+	@RequestMapping("/releasesprint/{id}")
+	public ModelAndView releasesprint(@PathVariable("id") int id) {
+		
+		
+		ModelAndView modelAndView = new ModelAndView();
+		Sprint sprint =sprintService.findById(id);
+		Set<Story> stories=  sprint.getStories();
+		
+		boolean openstoriesFound= false;
+		for (Story story : stories) {
+			if (story.getStatus().equals("open") || story.getStatus().equals("in-progress") ) {
+				openstoriesFound=true;
+			}
+		}
+	/*	
+		if (openstoriesFound) {	
+			bindingResult
+					.rejectValue("email", "error.user",
+							"User with this email already exists");
+		}*/
+		
+		if (openstoriesFound) {
+			modelAndView.addObject("successMessage", "Can not release sprint due to unfinsed stories exists in the sprint");
+			
+			modelAndView.addObject("storys", sprint.getStories());
+			modelAndView.addObject("sprint", sprint);
+		    modelAndView.addObject("role", util.getRole());
+		    modelAndView.setViewName("sprintbacklog");
+		
+		} else {
+			
+			sprintService.releaseSprint(sprint);
+			modelAndView.addObject("successMessage", "Sprint released successfully");
+			
+			modelAndView.addObject("storys", sprint.getStories());
+			modelAndView.addObject("sprint", sprint);
+		    modelAndView.addObject("role", util.getRole());
+		    modelAndView.setViewName("sprintbacklog");
+		}
+		
+		
+		
+		return modelAndView;
+	        
+	}
 	
 }
 

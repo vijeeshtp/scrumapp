@@ -83,6 +83,8 @@ public class StoryServiceImpl implements StoryService {
 		 rStory.setPriority(story.getPriority());
 		 rStory.setStatus(story.getStatus());
 		 rStory.setProject(story.getProject());
+		 rStory.setRemaining(story.getRemaining());
+		 rStory.setActual(story.getActual());
 		 
 
 			if	(story.getStatus().equals("closed") ) {
@@ -97,17 +99,14 @@ public class StoryServiceImpl implements StoryService {
 		}
 		
 		
-		if(! story.getSprint().equals(rStory.getSprint().getId())) {
+		if( story.getSprint() !=null &&  ! story.getSprint().equals(rStory.getSprint().getId())) {
 			 Sprint sprint= sprintRepository.findOne(  story.getSprint().getId()); 
 			 rStory.setSprint(sprint);
 			 sprint.getStories().add(story);
-			 sprintRepository.save(sprint);
-				
+			 sprintRepository.save(sprint);			
 			 
 		}
-		
-		
-		 
+	 
 		 storyRepository.save(rStory);
 	
 	}

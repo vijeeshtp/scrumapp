@@ -18,6 +18,23 @@
 	<br />
 	<br />
 	<br />
+	
+		
+		<div class="row">
+			<div class="col-md-2 col-md-offset-9">
+		
+					<div class="form-group">
+						<div class="col-sm-9">
+						<form autocomplete="off" action="#" th:action="@{'/master/home'}"
+					 method="get" class="form-horizontal"
+					role="form">
+							<button type="submit" class="btn btn-primary btn-block">BACK
+							</button>
+							</form>
+							</div>
+				</div>
+				</div>
+				</div>
 
 	<div class="container">
 		<div>
@@ -47,9 +64,6 @@
 					<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'CLIENT'|| role eq 'USER'}" th:href="${'/project/createstory/' + {project.id}}">Create
 							Story </a></td>
 
-
-					<td><a th:href="${'/project/productbacklog/' + {project.id}}">status
-							of the project </a></td>
 
 					<td><a th:href="${'/project/productbacklog/' + {project.id}}">Product
 							Backlog</a></td>
@@ -126,9 +140,9 @@
 							<thead>
 								<tr>
 									<th>Sprint id</th>
-
-									<!-- 		<th>Number Of Days</th> -->
+									<th>Sprint Number</th> 
 									<th>Sprint Description</th>
+									<th>Sprint Status</th>
 									<th>Start Date</th>
 									<th>End Date</th>
 
@@ -142,9 +156,10 @@
 							<tbody>
 								<tr th:each="sprint : ${sprints}">
 									<td th:text="${sprint.id}"></td>
-
+									<td th:text="${sprint.sprintNo}"></td>
 									<!-- 	<td th:text="${sprint.noOfDays}"></td> -->
 									<td th:text="${sprint.sprintDesc}"></td>
+										<td th:text="${sprint.status}"></td>
 									<td  th:text="${#dates.format(sprint.startDate, 'dd-MMM-yyyy')}"></td>
 									<td th:text="${#dates.format(sprint.endDate, 'dd-MMM-yyyy')}" ></td>
 

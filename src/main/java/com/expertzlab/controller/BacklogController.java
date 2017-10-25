@@ -10,7 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.expertzlab.model.Project;
-
+import com.expertzlab.model.Sprint;
 import com.expertzlab.service.ProjectService;
 import com.expertzlab.service.UserService;
 import com.expertzlab.util.Util;
@@ -23,6 +23,10 @@ public class BacklogController {
 	
 	@Autowired
 	private ProjectService projectService;
+	
+	@Autowired
+	private SprintService sprintService;
+	
 	
 	@Autowired
 	private Util util;
@@ -42,10 +46,14 @@ public class BacklogController {
 	
 	@RequestMapping(value={ "/project/sprintbacklog/{id}"}, method = RequestMethod.GET)
 	public ModelAndView sprintbacklog(@PathVariable("id") int id){
-		 Project project = projectService.findById(id);
+		
+		 Sprint sprint = sprintService.findById(id);
+		 Project project = sprint.getProject();
 		 ModelAndView modelAndView = new ModelAndView();
-	  modelAndView.addObject("sprints", project.getSprints());
+	  modelAndView.addObject("storys", sprint.getStories());
 	  modelAndView.addObject("project", project);
+	  modelAndView.addObject("sprint", sprintService.findById(id));
+	  
 		modelAndView.setViewName("sprintbacklog");
 		modelAndView.addObject("role", util.getRole());
 		return modelAndView;

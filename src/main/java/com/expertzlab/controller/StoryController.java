@@ -131,17 +131,24 @@ public class StoryController {
 	@RequestMapping(value = "/story/update", method = RequestMethod.POST)
 	public ModelAndView updateStory(@Valid Story story, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
-		   int projectid= story.getProject().getId();
-		     Project project= projectService.findById(projectid);
+		modelAndView.addObject("enabled",  util.getRole().equals("SMASTER") || util.getRole().equals("ADMIN")|| util.getRole().equals("POWNER"));
+		
+		
+		
+		int projectid= story.getProject().getId();
+		Project project= projectService.findById(projectid);
 		if (bindingResult.hasErrors()) {
+			modelAndView.addObject("successMessage", bindingResult.getFieldErrors());
 			modelAndView.setViewName("story-edit");
 			modelAndView.addObject("storys", storyService.findAll());
+			story.setProject(project);
 		
 		} else {
 			storyService.updateStory( story);
 			modelAndView.addObject("successMessage", "Story has been updated successfully");
 			modelAndView.setViewName("story-edit");
-			modelAndView.addObject("storys", project.getStories());
+			modelAndView.addObject("story", storyService.findById(story.getId()));
+			modelAndView.addObject("storys",project.getStories());
 		}
 		modelAndView.addObject("role", util.getRole());
 		return modelAndView;
@@ -150,7 +157,7 @@ public class StoryController {
 	
 		@RequestMapping("/story/edit/{id}")
 	    public ModelAndView editView(@PathVariable("id") int id) {
-	      Story story = storyService.findById(id);
+			Story story = storyService.findById(id);
 	      
 	        ModelAndView modelAndView = new ModelAndView();
 			modelAndView.addObject("story", story);
@@ -160,7 +167,7 @@ public class StoryController {
 			modelAndView.addObject("projects", projectService.findAll());
 			modelAndView.setViewName("story-edit");
 			modelAndView.addObject("role", util.getRole());
-			modelAndView.addObject("enabled",  util.getRole().equals("SMASTER"));
+			modelAndView.addObject("enabled",  util.getRole().equals("SMASTER") || util.getRole().equals("ADMIN")|| util.getRole().equals("POWNER"));
 			return modelAndView;
 	    }
 		

@@ -16,5 +16,5 @@ public interface SprintService {
 	public void deleteProject (Sprint project);
 	public void updateSprint(Sprint sprint) ;
 	public void deleteSprint (Sprint sprint);
-
+	public void releaseSprint(Sprint inSprint);
 }

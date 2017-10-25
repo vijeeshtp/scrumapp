@@ -33,7 +33,7 @@ public class LoginController {
 	@Autowired
 	private ProjectService projectService;
 	
-	@RequestMapping(value={"/", "/app"}, method = RequestMethod.GET)
+	@RequestMapping(value={ "/app"}, method = RequestMethod.GET)
 	public ModelAndView apphome(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("apphome");
@@ -41,7 +41,7 @@ public class LoginController {
 	}
 	
 
-	@RequestMapping(value={ "/login"}, method = RequestMethod.GET)
+	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
@@ -99,6 +99,41 @@ public class LoginController {
 		return modelAndView;
 	}
 	
+	@RequestMapping(value="/register", method = RequestMethod.GET)
+	public ModelAndView register(){
+		ModelAndView modelAndView = new ModelAndView();
+		User user = new User();
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("register");
+		modelAndView.addObject("role", util.getRole());
+		return modelAndView;
+	}
+	
+	
+	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	public ModelAndView register(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		User userExists = userService.findUserByEmail(user.getEmail());
+		if (userExists != null) {	
+			bindingResult
+					.rejectValue("email", "error.user",
+							"User with this email already exists");
+		}
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("registration");
+		} else {
+			userService.saveUser(user);
+			modelAndView.addObject("successMessage", "User has been registered successfully");
+			modelAndView.addObject("user", user);
+			modelAndView.setViewName("register");
+			//modelAndView.setViewName("/home");
+			
+			
+		}
+		modelAndView.addObject("role", util.getRole());
+		return modelAndView;
+	}
+	
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
 		ModelAndView modelAndView = new ModelAndView();
@@ -113,11 +148,22 @@ public class LoginController {
 	public ModelAndView createNewUser(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 		User userExists = userService.findUserByEmail(user.getEmail());
+		
+	
+		
 		if (userExists != null) {	
 			bindingResult
 					.rejectValue("email", "error.user",
 							"User with this email already exists");
 		}
+		
+		
+		if (!user.getPassword().equals(user.getPasswordConfirmed())) {
+			bindingResult
+			.rejectValue("passwordConfirmed", "error.user",
+					"Password and confirm password does not match");
+		}
+		
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("registration");
 		} else {

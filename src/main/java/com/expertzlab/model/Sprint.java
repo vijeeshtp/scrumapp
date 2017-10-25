@@ -31,7 +31,7 @@ public class Sprint {
 	private int id;
 
 	@Column(name = "sprintno")
-	//@NotEmpty(message = "*Please provide a valid number")
+	@NotNull(message = "*Please provide the number of the sprint")
 	private int sprintNo;
 
 	//@Column(name = "sprint_duration")
@@ -79,8 +79,8 @@ public class Sprint {
 	private Date endDate;
 
 	@Column(name = "name")
-	@NotEmpty(message = "*Please provide a Name for the Sprint")
-	@NotNull
+	//@NotEmpty(message = "*Please provide a Name for the Sprint")
+	//@NotNull
 	private String name;
 
 	@OneToMany(mappedBy = "sprint")
