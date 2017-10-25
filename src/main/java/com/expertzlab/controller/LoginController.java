@@ -33,11 +33,50 @@ public class LoginController {
 	@Autowired
 	private ProjectService projectService;
 	
+	@RequestMapping(value={"/", "/app"}, method = RequestMethod.GET)
+	public ModelAndView apphome(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("apphome");
+		return modelAndView;
+	}
+	
 
-	@RequestMapping(value={"/", "/login"}, method = RequestMethod.GET)
+	@RequestMapping(value={ "/login"}, method = RequestMethod.GET)
 	public ModelAndView login(){
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("login");
+		modelAndView.addObject("role", util.getRole());
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/useredit", method = RequestMethod.GET)
+	public ModelAndView editprofile(){
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		user.setPassword("");
+		user.setUser_role("USER");
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("/editprofile");
+		modelAndView.addObject("role", util.getRole());
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/useredit", method = RequestMethod.POST)
+	public ModelAndView useredit(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("editprofile");
+		} else {
+			userService.updateUser(user);
+			modelAndView.addObject("successMessage", "User has been updated successfully");
+			modelAndView.addObject("user", user);
+			modelAndView.setViewName("editprofile");
+			//modelAndView.setViewName("/home");
+			
+			
+		}
 		modelAndView.addObject("role", util.getRole());
 		return modelAndView;
 	}
@@ -141,12 +180,7 @@ public class LoginController {
 	}
 	
 	
-	@RequestMapping(value="/user/edit", method = RequestMethod.GET)
-	public ModelAndView editprofile(){
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("/editprofile");
-		return modelAndView;
-	}
+	
 		
 		
 		

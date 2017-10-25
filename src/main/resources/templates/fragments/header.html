@@ -29,7 +29,7 @@
                 </li>-->
                  
           	  <li >
-                    <a href="#" th:href="@{/user/edit}">VIEW PROFILE</a>
+                    <a href="#" th:href="@{/useredit}">VIEW PROFILE</a>
                 </li> 
                 
                 <li >
@@ -38,7 +38,7 @@
                 
                 
                 <li >
-                    <a href="#" th:if="${role eq 'ADMIN'||role eq 'POWNER'||role eq 'SMASTER'}"th:href="@{/project}">CREATE PROJECT</a>
+                    <a href="#" th:if="${role eq 'ADMIN'||role eq 'POWNER'}"th:href="@{/project}">CREATE PROJECT</a>
                 </li>
                 
              

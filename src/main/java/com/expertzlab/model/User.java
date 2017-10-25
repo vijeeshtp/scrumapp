@@ -79,7 +79,7 @@ public class User {
 	private String lastName;
 	
 	@Column(name = "user_role")
-	@NotEmpty(message = "*Please provide user role")
+	//@NotEmpty(message = "*Please provide user role")
 	private String user_role;
 	
 	public String getUser_role() {

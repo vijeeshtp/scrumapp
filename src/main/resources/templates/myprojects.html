@@ -98,7 +98,7 @@
 									<td th:text="${story.duration}"></td>
 									<td th:text="${story.status}"></td>
 									<td th:text="${story.sprint.name}"></td>
-									<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'USER'}" th:href="${'/story/edit/' + {story.id}}">open
+									<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'USER'|| role eq 'ADMIN'}" th:href="${'/story/edit/' + {story.id}}">open
 											story</a></td>
 
 								</tr>
@@ -152,7 +152,7 @@
 											Backlog</a></td>
 									<td><a th:href="${'/sprint/burndown/' + {sprint.id}}">Sprint
 											Burn-down Chart</a></td>
-									<td><a th:if="${role eq 'SMASTER'|| role eq 'POWNER'|| role eq 'USER'}" th:href="${'/sprint/edit/' + {sprint.id}}">Open
+									<td><a  th:href="${'/sprint/edit/' + {sprint.id}}">Open
 											Sprint</a></td>
 
 

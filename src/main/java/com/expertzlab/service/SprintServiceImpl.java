@@ -57,8 +57,14 @@ public class SprintServiceImpl  implements SprintService {
 	}
 
 	@Override
-	public void updateSprint(Sprint sprint) {
-		// TODO Auto-generated method stub
+	public void updateSprint(Sprint inSprint) {
+		Sprint sprint=findById(inSprint.getId());
+		sprint.setName(inSprint.getName());
+		sprint.setBurnperDay(inSprint.getBurnperDay());
+		sprint.setSprintDesc(inSprint.getSprintDesc());
+		sprint.setStartDate(inSprint.getStartDate());
+		sprint.setEndDate(inSprint.getEndDate());
+		sprintRepository.save(sprint);
 		
 	}
 

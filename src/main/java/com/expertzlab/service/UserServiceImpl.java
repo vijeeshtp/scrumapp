@@ -37,6 +37,8 @@ public class UserServiceImpl implements UserService{
 		userRepository.save(user);
 	}
 	
+	
+	
 	@Override
 	public List<User> findAll() {
 		 return userRepository.findAll();
@@ -45,5 +47,20 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User findById(long id) {
 		 return userRepository.findOne(id);
+	}
+
+	@Override
+	public void updateUser(User inUser) {	
+		
+	User user=	userRepository.findByEmail(inUser.getEmail());
+	
+	user.setName(inUser.getName());
+	user.setLastName(inUser.getLastName());
+	user.setPassword(bCryptPasswordEncoder.encode(inUser.getPassword()));
+    user.setActive(1);
+    //Role userRole = roleRepository.findByRole(user.getUser_role());
+   // user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
+	userRepository.save(user);// TODO Auto-generated method stub
+		
 	}
 }

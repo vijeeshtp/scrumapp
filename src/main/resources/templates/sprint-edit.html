@@ -5,7 +5,7 @@
 <title>Project Creation</title>
 <link rel="stylesheet" type="text/css"
 	th:href="@{/css/registration.css}" />
-<link rel="stylesheet"
+ <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -24,7 +24,8 @@
 				<form autocomplete="off" action="#" th:action="@{/sprint/update}"
 					th:object="${sprint}" method="post" class="form-horizontal"
 					role="form">
-
+<input type="hidden"
+								th:field="*{id}" placeholder="NAME" class="form-control" />
 
 <br />
 					<br />
@@ -134,6 +135,25 @@
 				</form>
 			</div>
 		</div>
+		
+		
+		
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+		
+					<div class="form-group">
+						<div class="col-sm-9">
+						<form autocomplete="off" action="#" th:action="@{'/myprojects/'+ ${sprint.project.id}}"
+					 method="get" class="form-horizontal"
+					role="form">
+							<button type="submit" class="btn btn-primary btn-block">BACK
+							</button>
+							</form>
+							</div>
+				</div>
+				</div>
+				</div>
+		
 		
 		<div class="panel-body">
 
